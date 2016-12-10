@@ -1,0 +1,290 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+comment: ''
+name: AutoLISP
+scopeName: source.autolisp
+fileTypes: [lsp]
+uuid: 00D451C9-6B1D-11D9-8DFA-000D93589AF7
+
+patterns:
+- include: '#comment'
+- include: '#atom'
+- include: '#function'
+
+repository:
+
+  comment:
+    patterns:
+    - name: comment.block.autolisp
+      begin: ;\|
+      end: \|;
+    - name: comment.line.semicolon.autolisp
+      match: ;.*$
+
+  atom:
+    patterns:
+    - include: '#string'
+    - include: '#number'
+    - include: '#symbol'
+
+  string:
+    patterns:
+    - name: string.quoted.double.autolisp
+      #match: \".*?[^\\]\"
+      begin: '"'
+      beginCaptures:
+        '0': {name: punctuation.definition.string.begin.autolisp}
+      end: '"'
+      endCaptures:
+        '0': {name: punctuation.definition.string.end.autolisp}
+      patterns:
+        - match: \\(?:\d{1,3}|.)
+          name: constant.character.escape.autolisp
+
+  number:
+    patterns:
+    - name: constant.numeric.autolisp
+      match: (?i)(?<=^|['\s()])[+-]?\d+\.?\d*(?=$|[\s()])
+
+  symbol:
+    patterns:
+    - include: '#vanilla'
+    - include: '#vl'
+    - include: '#vle'
+    - include: '#vlr'
+    - include: '#vlax'
+    - include: '#vla'
+    - include: '#require'
+    - include: '#call'
+
+  function:
+    patterns:
+    - name: meta.function.autolisp
+      #match: (?i)(?<=defun|defun-q)\s+([^'\s()]+)\s*(\()\s*([^'\s()]+)\s*(\))
+      match: (?i)(?<=defun|defun-q)\s+([^'\s()]+)\s*(\()([^'()]*)(\))
+      captures:
+        '1': {name: entity.name.function.autolisp}
+        '2': {name: punctuation.defenition.parameters.begin.autolisp}
+        '3': {name: variable.parameter.autolisp}
+        '4': {name: punctuation.defenition.parameters.end.autolisp}
+
+  vanilla:
+    patterns:
+    - name: variable.language.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])\*(?:last-value|error|push-error-using-(?:command|stack)|pop-error-mode)\*(?=$|[\s()])
+    - name: constant.language.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:nil|t)(?=$|[\s()])
+    - name: support.constant.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:pi)(?=$|[\s()])
+    - name: support.function.control.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:while|cond|if|progn|repeat)(?=$|[\s()])
+    - name: support.function.base.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:load|defun(?:-q(?:-list-(?:ref|set)?)?)?|set[q]?|function|lambda|read|eval|trace|untrace)(?=$|[\s()])
+    - name: support.function.comparsion.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:eq|equal|=|/=|<|<=|>|>=|or|and|not)(?=$|[\s()])
+    - name: support.function.symbol.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:boundp|atoms-family|type|quote)(?=$|[\s()])
+    - name: support.function.string.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:strlen|substr|strcat|ascii|chr|strcase|wcmatch|acad_strlsort)(?=$|[\s()])
+    - name: support.function.math.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:numberp|zerop|minusp|float|fix|\+|-|\*|/|1\+|1-|min|max|abs|rem|gcd|sqrt|expt|exp|log|sin|cos|atan|~|lsh|logand|logior|boole)(?=$|[\s()])
+    - name: support.function.list.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:atom|null|listp|length|c[ad]{1,4}r|nth|last|cons|list|append|reverse|mapcar|foreach|apply|member|subst|assoc)(?=$|[\s()])
+    - name: support.function.io.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1])(?=$|[\s()])
+    - name: support.function.display.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:prompt|terpri|textpage|textscr|graphscr|redraw|grtext|grdraw|grvecs|vports|menucmd|menugroup)(?=$|[\s()])
+    - name: support.function.acad.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:setvar|getvar|acad-(?:push|pop)-dbmod|alert|acad_(?:helpdlg|colordlg|truecolordlg|truecolorcli)|getfiled)(?=$|[\s()])
+    - name: support.function.input.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:initget|get(?:kword|string|int|real|dist|angle|orient|point|corner)|entsel|nentsel|nentselp)(?=$|[\s()])
+    - name: support.function.entity.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:entget|entmod|entmake|entmakex|entlast|entnext|entupd|entdel|handent)(?=$|[\s()])
+    - name: support.function.selectionset.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:ssget|ss[gs]etfirst|sslength|ssmemb|ssadd|ssdel|ssname[x]?)(?=$|[\s()])
+    - name: support.function.acadmac.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:dumpallproperties|ispropertyreadonly|[gs]etpropertyvalue)(?=$|[\s()])
+    - name: support.function.dcl.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:(?:load|unload|new|start|term|done)_dialog|(?:add|start|end)_list|(?:start|end|slide|fill|vector)_image|(?:set|get|action|mode|dimx|dimy|client_data)_tile|get_attr)(?=$|[\s()])
+
+  vl:
+    patterns:
+    - name: support.function.misc.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-load-com(?=$|[\s()])
+    - name: support.function.symbol.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-symbol(?:p|-value|-name)(?=$|[\s()])
+    - name: support.function.string.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|>list)|list->string)(?=$|[\s()])
+    - name: support.function.list.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-(?:consp|list\*|list-length|every|some|position|remove(?:-if(?:-not)?)?|member-if(?:-not)?|sort(?:-i)?)(?=$|[\s()])
+    - name: support.function.io.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-(?:prin[c1]-to-string|file-(?:directory-p|size|systime|rename|copy|delete)|filename-(?:directory|base|extension|mktemp)|directory-files|mkdir)(?=$|[\s()])
+    - name: support.function.error.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-(?:catch-all-(?:apply|error-p))(?=$|[\s()])
+    - name: support.function.namespace.vl.autolisp
+      match: (?i)(?<=^|['\s()])vl-(?:arx-import|doc-(?:import|export|ref|set)|exit-with-(?:error|value)|list-loaded-vlx|unload-vlx|vlx-loaded-p|bb-(?:ref|set)|load-all|propogate)(?=$|[\s()])
+
+  vle:
+    patterns:
+    - name: support.constant.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-extensions-active(?=$|[\s()])
+    - name: support.function.control.vle.autolisp
+      match: (?i)(?<=^|['\s()])until(?=$|[\s()])
+    - name: support.function.symbol.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-symbolp(?=$|[\s()])
+    - name: support.function.string.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-string(?:p|-split)(?=$|[\s()])
+    - name: support.function.math.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:numberp|integerp|realp|ceiling|floor|round|roundto|tan)(?=$|[\s()])
+    - name: support.function.list.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:nth\d|sublist|append|(?:get-|set-)?(?:cdrassoc|cassoc)|list-(?:split|union|intersect|diff|subtract)|put-nth|remove-(?:all|first|last|nth)|search|find|member|subst-nth)(?=$|[\s()])
+    - name: support.function.activex.vle.autolisp
+      match: (?i)(?<=^|['\s()])(?:vle-(?:vlaobjectp|variantp|safearrayp)|vlax-2d-point)(?=$|[\s()])
+    - name: support.function.io.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:filep|file->list)(?=$|[\s()])
+    - name: support.function.display.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-displaypause(?=$|[\s()])
+
+  vlr:
+    patterns:
+    - name: support.function.vlr.autolisp
+      match: (?i)(?<=^|['\s()])vlr-(?=$|[\s()])
+
+  vlax:
+    patterns:
+    - name: support.constant.activex.language.vlax.autolisp
+      match: (?i)(?<=^|['\s()]):vlax-(?:true|false|null)(?=$|[\s()])
+    - name: support.constant.activex.msgbox-result.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-vb(?:OK|Cancel|Abort|Retry|Ignore|Yes|No)(?=$|[\s()])
+    - name: support.constant.activex.msgbox-style.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-vb(?:OKOnly|OKCancel|AbortRetryIgnore|YesNoCancel|YesNo|RetryCancel|Critical|Question|Exclamation|Information|DefaultButton1|DefaultButton2|DefaultButton3|ApplicationModal|SystemModal)(?=$|[\s()])
+    - name: support.constant.activex.fileattr.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-vb(?:Normal|ReadOnly|Hidden|System|Volume|Directory|Archive)(?=$|[\s()])
+    - name: support.constant.activex.strconv.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-vb(?:UpperCase|LowerCase|ProperCase|Wide|Narrow|Katakana|Hiragana)(?=$|[\s()])
+    - name: support.constant.activex.variant-type.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-vb(?:Empty|Null|Integer|Long|Single|Double|Currency|Date|String|Object|Error|Boolean|Variant|DataObject|Decimal|Array)(?=$|[\s()])
+    - name: support.function.activex.variant.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:make-variant|variant-(?:value|type|change-type))(?=$|[\s()])
+    - name: support.function.activex.misc.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:3d-point|tmatrix)(?=$|[\s()])
+    - name: support.function.activex.safearray.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:make-safearray|safearray-(?:fill|(?:get|put)-element|get-(?:dim|[lu]-bound)|type|value|>list))(?=$|[\s()])
+    - name: support.function.activex.collection.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:for|map-collection)(?=$|[\s()])
+    - name: support.function.activex.object.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:(?:create|get|get-or-create|release|dump)-object|object-released-p|invoke-method|method-applicable-p|(?:get|put)-property|property-available-p|import-type-library|typeinfo-avilable-p)(?=$|[\s()])
+    - name: invalid.deprecated.activex.object.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:get|put|invoke)(?=$|[\s()])
+    - name: support.function.activex.acad.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-(?:get-acad-object|(?:machine-|user-)?product-key|(?:add|remove)-cmd|ldata-(?:get|put|delete|list|test)|vla-object->ename|ename->vla-object|erased-p|(?:read|write)-enabled-p|queueexpr)(?=$|[\s()])
+    - name: support.function.registry.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-registry-(?:read|write|delete|descendents)(?=$|[\s()])
+    - name: support.function.curve.vlax.autolisp
+      match: (?i)(?<=^|['\s()])vlax-curve-(?:get(?:|area|closestpointto(?:projection)?|distatparam|paramatdist|distatpoint|pointatdist|pointatparam|paramatpoint|startparam|endparam|startpoint|endpoint|firstderiv|secondderiv)|is(?:closed|periodic|planar))(?=$|[\s()])
+
+  vla:
+    patterns:
+    - name: support.function.method.common.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Delete|Move|Copy|(?:Rotate|Mirror)(?:3D)?|ScaleEntity|TransformBy|Array(?:Polar|Rectangular)|Update|Highlight|GetBoundingBox|(?:Get|Set)XData|GetExtensionDictionary|IntersectWith|Offset)(?=$|[\s()])
+    - name: support.function.property.common.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Layer|Linetype|LinetypeScale|Lineweight|TrueColor|Material|Visible|EntityTransparency|Rotation|Thickness|Coordinate[s]?|Normal|PlotStyleName|Position|Closed|Area)(?=$|[\s()])
+    - name: support.function.property.common.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:Application|Document|Handle|(?:Object|Owner)ID(?:32)?|ObjectName|HasExtensionDictionary|HyperLinks|Area)(?=$|[\s()])
+    - name: support.constant.windowstate.vla.autolisp
+      match: (?i)(?<=^|['\s()])ac(?:Min|Max|Norm)(?=$|[\s()])
+    - name: support.function.method.application.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Quit|GetAcadState|GetInterfaceObject|Zoom(?:All|Center|Extents|PickWindow|Previous|Scaled|Window)|ListARX|(?:Load|Unload)(?:ARX|DVB)|Eval|RunMacro)(?=$|[\s()])
+    - name: support.function.property.application.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:ActiveDocument)(?=$|[\s()])
+    - name: support.function.property.application.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:Caption|Documents|HWND(?:32)?|Window(?:State|Left|Top)|Version|StatusID|LocaleID|VBE|MenuGroups|MenuBar)(?=$|[\s()])
+    - name: support.constant.activespace.vla.autolisp
+      match: (?i)(?<=^|['\s()])ac(?:Model|Paper)Space(?=$|[\s()])
+    - name: support.function.method.database.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:CopyObjects|HandleToObject|ObjectIdToObject(?:32)?)(?=$|[\s()])
+    - name: support.function.property.database.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Elevation(?:Model|Paper)Space)(?=$|[\s()])
+    - name: support.function.property.database.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:Blocks|Dictionaries|DimStyles|FileDependencies|Groups|Layers|Layouts|Linetypes|Materials|(?:Model|Paper)Space|PlotConfigurations|Preferences|RegisteredApplications|SectionManager|SummaryInfo|TextStyles|UserCoordinateSystems|Viewports|Views)(?=$|[\s()])
+    - name: support.function.method.document.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:New|Open|Close|Save|SaveAs|Import|Export|WBlock|LoadShapeFile|PurgeAll|Regen|Activate|AuditInfo|(?:Start|End)UndoMark|(?:Get|Set)Variable|SendCommand)(?=$|[\s()])
+    - name: support.function.property.document.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Active(?:DimStyle|Layer|Layout|LineType|Material|PViewport|Space|TextStyle|UCS|Viewport)|Limits|MSpace)(?=$|[\s()])
+    - name: support.function.property.document.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:Database|Active|Utility|ObjectSnapMode|SelectionSets|ActiveSelectionSet|PickfirstSelectionSet|Plot|WindowTitle|FullName|Path|ReadOnly|Saved)(?=$|[\s()])
+    - name: support.function.method.utility.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:TranslateCoordinates|CreateTypedArray|GetObjectIdString|ObjectId32ToObjectIdString|AngleFromXAxis|AngleToReal|AngleToString|DistanceToReal|RealToString|PolarPoint|Prompt|InitializeUserInput|Get(?:Angle|Corner|Distance|Input|Integer|Keyword|Orientation|Point|Real|String|Entity|SubEntity(?:32)?)|IsURL|(?:Get|Put|Is)RemoteFile|SendModelessOperation(?:Start|Ended)|LaunchBrowserDialog)(?=$|[\s()])
+    - name: support.constant.color.vla.autolisp
+      match: (?i)(?<=^|['\s()])ac(?:ByBlock|ByLayer|Red|Yellow|Green|Cyan|Blue|Magenta|White)(?=$|[\s()])
+    - name: support.constant.lineweight.vla.autolisp
+      match: (?i)(?<=^|['\s()])acLnWt(?:ByLayer|ByBlock|ByLwDefault|000|005|009|013|015|018|020|025|030|035|040|050|053|060|070|080|090|100|106|120|140|158|200|211)(?=$|[\s()])
+    - name: support.function.method.spline.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Delete)FitPoint|ElevateOrder|(?:Get|Set)(?:Control|Fit)Point|GetWeight|PurgeFitData)(?=$|[\s()])
+    - name: support.function.property.spline.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Closed2|Degree2|EndTangent|FitPoints|FitTolerance|KnotParameterization|Knots|SplineFrame|SplineMethod|StartTangent|Weights)(?=$|[\s()])
+    - name: support.function.property.spline.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:Closed|Degree|IsPeriodic|IsPlanar|IsRational|NumberOfControlPoints)(?=$|[\s()])
+    - name: support.constant.spline.vla.autolisp
+      match: (?i)(?<=^|['\s()])ac(?:Chord|SqrtChord|UniformParam|CustomParameterization|Hide|Show|Fit|ControlVertices)(?=$|[\s()])
+    - name: support.function.property.helix.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:BaseRadius|TopRadius|Constrain|TurnHeight|Turns|TurnSlope|Twist|TotalLength)(?=$|[\s()])
+    - name: support.function.method.collection.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Add|Item)(?=$|[\s()])
+    - name: support.function.property.collection.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-Count(?=$|[\s()])
+    - name: support.function.method.selectionset.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Clear|(?:Add|Remove)Items|Select(?:AtPoint|ByPolygon|OnScreen)?|Erase)(?=$|[\s()])
+    - name: support.function.method.group.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-AppendItems(?=$|[\s()])
+    - name: support.function.method.dictionary.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:AddXRecord|AddObject|GetObject|GetName|Remove|Rename|Replace)(?=$|[\s()])
+    - name: support.function.method.filedependencies.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:IndexOf|(?:Create|Update|Remove)Entry)(?=$|[\s()])
+    - name: support.function.property.filedependency.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:AffectGraphics|Feature|FleName|FileSize|FingerprintGUID|FoundPath|FullFileName|Index|IsModified|ReferenceCount|TimeStamp|VersionGUID)(?=$|[\s()])
+    - name: support.function.method.block.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Add(?:Point|Line|Poly|Polyline|LightWeightPolyline|Vertex|Section|3DPoly|Spline|MLine|XLine|Ray|Arc|Circle|Ellipse|Text|MText|Solid|Table|Polyface|3DFace|3DMesh|Box|Sphere|(?:Elliptical)?(?:Cone|Cylinder)|ExtrudedSolid(?:AlongPath)?|Torus|Attribute|Dim(?:(?:3Point)?Angular|Aligned|Arc|Diametric|Ordinate|Radial(?:Large)?|Rotated)|FitPoint|Hatch|Leader|LeaderLine(?:Ex)?|MInsertBLock|MLeader|PViewport|Raster|Region|RevolvedSolid|Shape|Tolerance|Trace|Wedge))(?=$|[\s()])
+    - name: support.function.table.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:ClearSubSelection|ClearTableStyleOverrides|CreateContent|Delete(?:Cell)?Content|Delete(?:Columns|Rows)|EnableMergeAll|FormatValue|GenerateLayout)(?=$|[\s()])
+    - name: support.function.method.summaryinfo.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Num)CustomInfo|(?:Get|Set|Remove)CustomBy(?:Index|Key))(?=$|[\s()])
+    - name: support.function.property.summaryinfo.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Author|Coments|HyperlinkBase|Keywords|LastSavedBy|RevisionNumber|Subject|Title)(?=$|[\s()])
+    - name: support.function.method.menu-toolbar.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:Save|SaveAs|Unload|Delete|(?:Add(?:MenuItem|Separator|Submenu|ToolbarButton)|(?:Insert(?:Menu)?In|Remove(?:Menu)?From)MenuBar)|Dock|Float|AttachToolbarToFlyout|(?:Get|Set)Bitmaps)(?=$|[\s()])
+    - name: support.function.property.menu-toolbar.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:FloatingRows|LargeButtons|Left|Top|Check|Enable|EndSubMenuLevel|HelpString|CommandDisplayName)(?=$|[\s()])
+    - name: support.function.property.menu-toolbar.vla.autolisp
+      match: (?i)(?<=^|['\s()])vla-get-(?:MenuFileName|Menus|Submenu|Toolbars|Index|Caption|Label|Macro|NameNoMnemonic|OnMenuBar|ShortcutMenu|Parent|DockStatus|Height|Width|Type|TagString|Flyout)(?=$|[\s()])
+
+  require:
+    patterns:
+    - name: support.variable.require.autolisp
+      match: (?i)(?<=^|['\s()])(?:\*features\*)(?=$|[\s()])
+    - name: support.function.require.autolisp
+      match: (?i)(?<=^|['\s()])(?:require|provide)(?=$|[\s()])
+
+  call:
+    patterns:
+    - name: support.function.symbol.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:symbolp|objectp|booleanp|voidp|typep|symbol-value|symbol-name|void)(?=$|[\s()])
+    - name: support.function.function.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:functionp)(?=$|[\s()])
+    - name: support.function.string.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:substring|list->string|string-(?:>list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])
+    - name: support.function.stringx.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:string(?:=|/=|<|<=|>|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
+    - name: support.function.math.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:integerp|realp|plusp|oddp|evenp|fract|round|floor|ceiling|truncate|quot|mod|lcm|tan|asin|acos|rand|srand|random|random-seed)(?=$|[\s()])
+    - name: support.function.mathx.call.autolisp
+      match: (?i)(?<=^|['\s()])(?:1/|signum|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|degrees->radians|radians->degrees|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
+    #- name: support.constant.mathx.call.autolisp
+    #  match: (?i)(?<=^|['\s()])(?:-pi|2pi|pi/2)(?=$|[\s()])
+    - name: support.function.list.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|containsp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates)(?=$|[\s()])
+    - name: support.function.listx.call.autolisp
+      match: (?i)(?<=^|['\s()])(?:dotted-pair-p|dotted-list-p|last-cdr|maplist|maptree|flatten|tailp|ldiff)(?=$|[\s()])
+    - name: support.function.listset.call.autolisp
+      match: (?i)(?<=^|['\s()])cl-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
+    - name: support.function.activex.call.autolisp
+      match: (?i)(?<=^|['\s()])(?:vla-object-p|variantp|safearrayp)(?=$|[\s()])
