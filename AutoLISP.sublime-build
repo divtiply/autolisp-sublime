@@ -1,5 +1,5 @@
 {
 	"selector": "source.autolisp",
 	"cmd": ["echo", "Error: AutoLISP build is not supported for this OS."],
-	"windows": {"cmd": ["$packages/User/autolisp.bat", "$file"]},
+	"windows": {"cmd": ["autolisp.bat", "$file"]}
 }
