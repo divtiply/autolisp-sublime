@@ -2,7 +2,7 @@
 
 AutoCAD AutoLISP programming language package for Sublime Text.
 
-Supports syntax highlighting for vanilla AutoLISP, Visual LISP, Bricsys LispEx and CALL flavors.
+Supports syntax highlighting for vanilla AutoLISP, VisualLISP, BricsCAD LispEx and CALL flavors.
 
 ## Screenshots
 
