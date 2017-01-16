@@ -153,7 +153,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|containsp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.list.call.autolisp</string>
 				</dict>
