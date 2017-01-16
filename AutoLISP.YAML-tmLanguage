@@ -53,7 +53,6 @@ repository:
     - include: '#vlr'
     - include: '#vlax'
     - include: '#vla'
-    - include: '#require'
     - include: '#call'
 
   function:
@@ -257,34 +256,47 @@ repository:
     - name: support.function.property.menu-toolbar.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-get-(?:MenuFileName|Menus|Submenu|Toolbars|Index|Caption|Label|Macro|NameNoMnemonic|OnMenuBar|ShortcutMenu|Parent|DockStatus|Height|Width|Type|TagString|Flyout)(?=$|[\s()])
 
-  require:
-    patterns:
-    - name: support.variable.require.autolisp
-      match: (?i)(?<=^|['\s()])(?:\*features\*)(?=$|[\s()])
-    - name: support.function.require.autolisp
-      match: (?i)(?<=^|['\s()])(?:require|provide)(?=$|[\s()])
-
   call:
     patterns:
+    - name: support.variable.require.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:features)(?=$|[\s()])
+    - name: support.function.require.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:featuerep|provide|require)(?=$|[\s()])
+    - name: support.function.type.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:typep|anyp)(?=$|[\s()])
+    - name: support.constant.boolean.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:true|false)(?=$|[\s()])
+    - name: support.function.boolean.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:booleanp)(?=$|[\s()])
+    - name: support.constant.void.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:void)(?=$|[\s()])
+    - name: support.function.void.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:voidp)(?=$|[\s()])
     - name: support.function.symbol.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:symbolp|objectp|booleanp|voidp|typep|symbol-value|symbol-name|void)(?=$|[\s()])
-    - name: support.function.function.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:functionp)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:symbolp|symbol-value|symbol-name)(?=$|[\s()])
+    - name: support.function.def.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:functionp)(?=$|[\s()])
     - name: support.function.string.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:substring|list->string|string-(?:>list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:substring|list->string|string-(?:>list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])
     - name: support.function.stringx.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:string(?:=|/=|<|<=|>|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:string(?:=|/=|<|<=|>|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
+    - name: support.function.random.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:rand|srand|random|random-seed)(?=$|[\s()])
+    - name: support.function.number.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:integerp|realp|natnump|plusp|oddp|evenp|mod|quot)(?=$|[\s()])
+    - name: support.constant.numlim.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:most-(?:positive|negative)-fixnum|float-(?:negative-)?epsilon|(?:negative-)?inf|nan)(?=$|[\s()])
+    - name: support.function.numlim.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:infp|nanp)(?=$|[\s()])
     - name: support.function.math.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:integerp|realp|plusp|oddp|evenp|fract|round|floor|ceiling|truncate|quot|mod|lcm|tan|asin|acos|rand|srand|random|random-seed)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:signum|round|floor|ceiling|truncate|fract|lcm|tan|asin|acos|radians->degrees|degrees->radians)(?=$|[\s()])
     - name: support.function.mathx.call.autolisp
-      match: (?i)(?<=^|['\s()])(?:1/|signum|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|degrees->radians|radians->degrees|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
-    #- name: support.constant.mathx.call.autolisp
-    #  match: (?i)(?<=^|['\s()])(?:-pi|2pi|pi/2)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:1/|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
     - name: support.function.list.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|containsp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|containsp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
     - name: support.function.listx.call.autolisp
-      match: (?i)(?<=^|['\s()])(?:dotted-pair-p|dotted-list-p|last-cdr|maplist|maptree|flatten|tailp|ldiff)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:dotted-pair-p|dotted-list-p|last-cdr|maplist|maptree|flatten)(?=$|[\s()])
     - name: support.function.listset.call.autolisp
-      match: (?i)(?<=^|['\s()])cl-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
     - name: support.function.activex.call.autolisp
-      match: (?i)(?<=^|['\s()])(?:vla-object-p|variantp|safearrayp)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:vla-object-p|variantp|safearrayp)(?=$|[\s()])
