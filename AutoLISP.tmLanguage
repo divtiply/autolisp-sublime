@@ -57,7 +57,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:featuerep|provide|require)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:featurep|provide|require)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.require.call.autolisp</string>
 				</dict>

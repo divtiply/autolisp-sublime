@@ -261,7 +261,7 @@ repository:
     - name: support.variable.require.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:features)(?=$|[\s()])
     - name: support.function.require.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:featuerep|provide|require)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:featurep|provide|require)(?=$|[\s()])
     - name: support.function.type.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:typep|anyp)(?=$|[\s()])
     - name: support.constant.boolean.call.autolisp
