@@ -78,6 +78,8 @@ repository:
       match: (?i)(?<=^|['\s()])(?:while|cond|if|progn|repeat)(?=$|[\s()])
     - name: support.function.base.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:load|defun(?:-q(?:-list-(?:ref|set)?)?)?|set[q]?|function|lambda|read|eval|trace|untrace)(?=$|[\s()])
+    - name: support.function.type.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:type)(?=$|[\s()])
     - name: support.function.comparsion.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:eq|equal|=|/=|<|<=|>|>=|or|and|not)(?=$|[\s()])
     - name: support.function.symbol.vanilla.autolisp
@@ -87,7 +89,7 @@ repository:
     - name: support.function.math.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:numberp|zerop|minusp|float|fix|\+|-|\*|/|1\+|1-|min|max|abs|rem|gcd|sqrt|expt|exp|log|sin|cos|atan|~|lsh|logand|logior|boole)(?=$|[\s()])
     - name: support.function.list.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:atom|null|listp|length|c[ad]{1,4}r|nth|last|cons|list|append|reverse|mapcar|foreach|apply|member|subst|assoc)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|foreach|apply|member|subst|assoc)(?=$|[\s()])
     - name: support.function.io.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1])(?=$|[\s()])
     - name: support.function.display.vanilla.autolisp
@@ -263,7 +265,7 @@ repository:
     - name: support.function.require.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:featurep|provide|require)(?=$|[\s()])
     - name: support.function.type.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:typep|anyp)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:anyp|typep)(?=$|[\s()])
     - name: support.constant.boolean.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:true|false)(?=$|[\s()])
     - name: support.function.boolean.call.autolisp
@@ -293,9 +295,7 @@ repository:
     - name: support.function.mathx.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:1/|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
     - name: support.function.list.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
-    - name: support.function.listx.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:dotted-pair-p|dotted-list-p|last-cdr|maplist|maptree|flatten)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lst-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
     - name: support.function.listset.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
     - name: support.function.activex.call.autolisp
