@@ -6,13 +6,12 @@ fileTypes: [lsp]
 uuid: 00D451C9-6B1D-11D9-8DFA-000D93589AF7
 
 patterns:
-- include: '#comment'
-- include: '#atom'
-- include: '#function'
+- include: '#comments'
+- include: '#parens'
 
 repository:
 
-  comment:
+  comments:
     patterns:
     - name: comment.block.autolisp
       begin: ;\|
@@ -20,16 +19,32 @@ repository:
     - name: comment.line.semicolon.autolisp
       match: ;.*$
 
-  atom:
+  parens:
     patterns:
-    - include: '#string'
-    - include: '#number'
-    - include: '#symbol'
+    - name: meta.group.autolisp
+      begin: \(
+      beginCaptures:
+        '0': {name: punctuation.definition.group.begin.autolisp}
+      end: \)
+      endCaptures:
+        '0': {name: punctuation.definition.group.end.autolisp}
+      patterns:
+       - include: '#expressions'
+       - include: '#parens'
 
-  string:
+  expressions:
+    patterns:
+    - include: '#comments'
+    - include: '#strings'
+    - include: '#numbers'
+    - include: '#control'
+    # - include: '#operator'
+    - include: '#functions'
+    - include: '#symbols'
+
+  strings:
     patterns:
     - name: string.quoted.double.autolisp
-      #match: \".*?[^\\]\"
       begin: '"'
       beginCaptures:
         '0': {name: punctuation.definition.string.begin.autolisp}
@@ -40,12 +55,35 @@ repository:
         - match: \\(?:\d{1,3}|.)
           name: constant.character.escape.autolisp
 
-  number:
+  numbers:
     patterns:
     - name: constant.numeric.autolisp
-      match: (?i)(?<=^|['\s()])[+-]?\d+\.?\d*(?=$|[\s()])
+      match: (?<=^|['\s()])[+-]?\d+\.?\d*((e|E)(\+|-)?\d+)?(?=$|[\s()])
 
-  symbol:
+  control:
+    patterns:
+    - name: keyword.control.autolisp
+      match: (?<=^|['\s()])(?i:cond|if|and|or|not|progn|exit|quit|repeat|while|foreach|setq)(?=$|[\s()])
+
+  # operator:
+  #   patterns:
+  #   - name: keyword.operator.comparsion.autolisp
+  #     match: (?<=^|['\s()])(?i:=|/=|<|>|<=|>=)(?=$|[\s()])
+  #   - name: keyword.operator.arithmetic.autolisp
+  #     match: (?<=^|['\s()])(?i:\+|-|\*|/|1\+|1-)(?=$|[\s()])
+
+  functions:
+    patterns:
+    - name: meta.function.autolisp
+      match: (?i)(defun[q]?)\s+([^'\s()]+)\s*(\()([^'()]*)(\))
+      captures:
+        '1': {name: storage.type.function.autolisp}
+        '2': {name: entity.name.function.autolisp}
+        '3': {name: punctuation.definition.parameters.begin.autolisp}
+        '4': {name: variable.parameter.autolisp}
+        '5': {name: punctuation.definition.parameters.end.autolisp}
+
+  symbols:
     patterns:
     - include: '#vanilla'
     - include: '#vl'
@@ -55,43 +93,30 @@ repository:
     - include: '#vla'
     - include: '#call'
 
-  function:
-    patterns:
-    - name: meta.function.autolisp
-      #match: (?i)(?<=defun|defun-q)\s+([^'\s()]+)\s*(\()\s*([^'\s()]+)\s*(\))
-      match: (?i)(?<=defun|defun-q)\s+([^'\s()]+)\s*(\()([^'()]*)(\))
-      captures:
-        '1': {name: entity.name.function.autolisp}
-        '2': {name: punctuation.defenition.parameters.begin.autolisp}
-        '3': {name: variable.parameter.autolisp}
-        '4': {name: punctuation.defenition.parameters.end.autolisp}
-
   vanilla:
     patterns:
     - name: variable.language.vanilla.autolisp
       match: (?i)(?<=^|['\s()])\*(?:last-value|error|push-error-using-(?:command|stack)|pop-error-mode)\*(?=$|[\s()])
     - name: constant.language.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:nil|t)(?=$|[\s()])
-    - name: support.constant.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:pi)(?=$|[\s()])
-    - name: support.function.control.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:while|cond|if|progn|repeat)(?=$|[\s()])
     - name: support.function.base.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:load|defun(?:-q(?:-list-(?:ref|set)?)?)?|set[q]?|function|lambda|read|eval|trace|untrace)(?=$|[\s()])
-    - name: support.function.type.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:type)(?=$|[\s()])
-    - name: support.function.comparsion.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:eq|equal|=|/=|<|<=|>|>=|or|and|not)(?=$|[\s()])
+      match: (?<=^|['\s()])(?i:eval|quote|setq|lambda|function|apply|defun|defun-q|cond|if|and|or|not|progn|exit|quit|repeat|while|foreach|equal|eq|=|/=|<|>|<=|>=|type|trace|untrace)(?=$|[\s()])
     - name: support.function.symbol.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:boundp|atoms-family|type|quote)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:set|boundp|atoms-family)(?=$|[\s()])
     - name: support.function.string.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:strlen|substr|strcat|ascii|chr|strcase|wcmatch|acad_strlsort)(?=$|[\s()])
+    - name: support.function.number.vanilla.autolisp
+      match: (?<=^|['\s()])(?i:numberp|zerop|minusp|\+|-|\*|/|1\+|1-|rem|float|fix)(?=$|[\s()])
+    - name: support.constant.math.vanilla.autolisp
+      match: (?i)(?<=^|['\s()])(?:pi)(?=$|[\s()])
     - name: support.function.math.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:numberp|zerop|minusp|float|fix|\+|-|\*|/|1\+|1-|min|max|abs|rem|gcd|sqrt|expt|exp|log|sin|cos|atan|~|lsh|logand|logior|boole)(?=$|[\s()])
+      match: (?<=^|['\s()])(?i:min|max|abs|gcd|sqrt|expt|exp|log|sin|cos|atan)(?=$|[\s()])
+    - name: support.function.bitwise.vanilla.autolisp
+      match: (?<=^|['\s()])(?i:~|lsh|logand|logior|boole)(?=$|[\s()])
     - name: support.function.list.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|foreach|apply|member|subst|assoc)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|member|subst|assoc)(?=$|[\s()])
     - name: support.function.io.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1])(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1]|read|load)(?=$|[\s()])
     - name: support.function.display.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:prompt|terpri|textpage|textscr|graphscr|redraw|grtext|grdraw|grvecs|vports|menucmd|menugroup)(?=$|[\s()])
     - name: support.function.acad.vanilla.autolisp
@@ -116,7 +141,7 @@ repository:
     - name: support.function.string.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|>list)|list->string)(?=$|[\s()])
     - name: support.function.list.vl.autolisp
-      match: (?i)(?<=^|['\s()])vl-(?:consp|list\*|list-length|every|some|position|remove(?:-if(?:-not)?)?|member-if(?:-not)?|sort(?:-i)?)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vl-(?:consp|list\*|list-length|some|every|member-if(?:-not)?|position|remove(?:-if(?:-not)?)?|sort(?:-i)?)(?=$|[\s()])
     - name: support.function.io.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:prin[c1]-to-string|file-(?:directory-p|size|systime|rename|copy|delete)|filename-(?:directory|base|extension|mktemp)|directory-files|mkdir)(?=$|[\s()])
     - name: support.function.error.vl.autolisp
@@ -128,7 +153,7 @@ repository:
     patterns:
     - name: support.constant.vle.autolisp
       match: (?i)(?<=^|['\s()])vle-extensions-active(?=$|[\s()])
-    - name: support.function.control.vle.autolisp
+    - name: keyword.control.vle.autolisp
       match: (?i)(?<=^|['\s()])until(?=$|[\s()])
     - name: support.function.symbol.vle.autolisp
       match: (?i)(?<=^|['\s()])vle-symbolp(?=$|[\s()])
@@ -264,8 +289,10 @@ repository:
       match: (?i)(?<=^|['\s()])ll-(?:features)(?=$|[\s()])
     - name: support.function.require.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:featurep|provide|require)(?=$|[\s()])
+    - name: support.function.logic.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:nand|nor|xor)(?=$|[\s()])
     - name: support.function.type.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:anyp|typep)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:typep|anyp|functionp)(?=$|[\s()])
     - name: support.constant.boolean.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:true|false)(?=$|[\s()])
     - name: support.function.boolean.call.autolisp
@@ -276,12 +303,10 @@ repository:
       match: (?i)(?<=^|['\s()])ll-(?:voidp)(?=$|[\s()])
     - name: support.function.symbol.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:symbolp|symbol-value|symbol-name)(?=$|[\s()])
-    - name: support.function.def.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:functionp)(?=$|[\s()])
     - name: support.function.string.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:substring|list->string|string-(?:>list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])
-    - name: support.function.stringx.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:string(?:=|/=|<|<=|>|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
+    # - name: support.function.stringx.call.autolisp
+    #   match: (?i)(?<=^|['\s()])ll-(?:string(?:=|/=|<|>|<=|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
     - name: support.function.random.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:rand|srand|random|random-seed)(?=$|[\s()])
     - name: support.function.number.call.autolisp
@@ -294,8 +319,10 @@ repository:
       match: (?i)(?<=^|['\s()])ll-(?:signum|round|floor|ceiling|truncate|fract|lcm|tan|asin|acos|radians->degrees|degrees->radians)(?=$|[\s()])
     - name: support.function.mathx.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:1/|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
+    - name: support.constant.bitwise.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:boole-(?:1|2|and|andc1|andc2|c1|c2|clr|eqv|ior|nand|nor|orc1|orc2|set|xor))(?=$|[\s()])
     - name: support.function.list.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lst-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|last-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
     - name: support.function.listset.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
     - name: support.function.activex.call.autolisp

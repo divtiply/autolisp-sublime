@@ -14,37 +14,15 @@
 	<array>
 		<dict>
 			<key>include</key>
-			<string>#comment</string>
+			<string>#comments</string>
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#atom</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#function</string>
+			<string>#parens</string>
 		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>atom</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#string</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#number</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#symbol</string>
-				</dict>
-			</array>
-		</dict>
 		<key>call</key>
 		<dict>
 			<key>patterns</key>
@@ -63,7 +41,13 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:typep|anyp)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:nand|nor|xor)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.logic.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:typep|anyp|functionp)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.type.call.autolisp</string>
 				</dict>
@@ -99,21 +83,9 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:functionp)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.def.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:substring|list-&gt;string|string-(?:&gt;list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.string.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:string(?:=|/=|&lt;|&lt;=|&gt;|&gt;=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.stringx.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -153,15 +125,15 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|count(?:-if(?:-not)?)?|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:boole-(?:1|2|and|andc1|andc2|c1|c2|clr|eqv|ior|nand|nor|orc1|orc2|set|xor))(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.list.call.autolisp</string>
+					<string>support.constant.bitwise.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:dotted-pair-p|dotted-list-p|last-cdr|maplist|maptree|flatten)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|last-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.listx.call.autolisp</string>
+					<string>support.function.list.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -177,7 +149,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>comment</key>
+		<key>comments</key>
 		<dict>
 			<key>patterns</key>
 			<array>
@@ -197,7 +169,49 @@
 				</dict>
 			</array>
 		</dict>
-		<key>function</key>
+		<key>control</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=^|['\s()])(?i:cond|if|and|or|not|progn|exit|quit|repeat|while|foreach|setq)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>keyword.control.autolisp</string>
+				</dict>
+			</array>
+		</dict>
+		<key>expressions</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#strings</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#numbers</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#control</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#functions</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#symbols</string>
+				</dict>
+			</array>
+		</dict>
+		<key>functions</key>
 		<dict>
 			<key>patterns</key>
 			<array>
@@ -207,44 +221,90 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>entity.name.function.autolisp</string>
+							<string>storage.type.function.autolisp</string>
 						</dict>
 						<key>2</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.defenition.parameters.begin.autolisp</string>
+							<string>entity.name.function.autolisp</string>
 						</dict>
 						<key>3</key>
 						<dict>
 							<key>name</key>
-							<string>variable.parameter.autolisp</string>
+							<string>punctuation.definition.parameters.begin.autolisp</string>
 						</dict>
 						<key>4</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.defenition.parameters.end.autolisp</string>
+							<string>variable.parameter.autolisp</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.parameters.end.autolisp</string>
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=defun|defun-q)\s+([^'\s()]+)\s*(\()([^'()]*)(\))</string>
+					<string>(?i)(defun[q]?)\s+([^'\s()]+)\s*(\()([^'()]*)(\))</string>
 					<key>name</key>
 					<string>meta.function.autolisp</string>
 				</dict>
 			</array>
 		</dict>
-		<key>number</key>
+		<key>numbers</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])[+-]?\d+\.?\d*(?=$|[\s()])</string>
+					<string>(?&lt;=^|['\s()])[+-]?\d+\.?\d*((e|E)(\+|-)?\d+)?(?=$|[\s()])</string>
 					<key>name</key>
 					<string>constant.numeric.autolisp</string>
 				</dict>
 			</array>
 		</dict>
-		<key>string</key>
+		<key>parens</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.group.begin.autolisp</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.group.end.autolisp</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.group.autolisp</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#expressions</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#parens</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>strings</key>
 		<dict>
 			<key>patterns</key>
 			<array>
@@ -283,7 +343,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>symbol</key>
+		<key>symbols</key>
 		<dict>
 			<key>patterns</key>
 			<array>
@@ -335,31 +395,13 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:pi)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.constant.vanilla.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:while|cond|if|progn|repeat)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.control.vanilla.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:load|defun(?:-q(?:-list-(?:ref|set)?)?)?|set[q]?|function|lambda|read|eval|trace|untrace)(?=$|[\s()])</string>
+					<string>(?&lt;=^|['\s()])(?i:eval|quote|setq|lambda|function|apply|defun|defun-q|cond|if|and|or|not|progn|exit|quit|repeat|while|foreach|equal|eq|=|/=|&lt;|&gt;|&lt;=|&gt;=|type|trace|untrace)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.base.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:eq|equal|=|/=|&lt;|&lt;=|&gt;|&gt;=|or|and|not)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.comparsion.vanilla.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:boundp|atoms-family|type|quote)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])(?:set|boundp|atoms-family)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.symbol.vanilla.autolisp</string>
 				</dict>
@@ -371,19 +413,37 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:numberp|zerop|minusp|float|fix|\+|-|\*|/|1\+|1-|min|max|abs|rem|gcd|sqrt|expt|exp|log|sin|cos|atan|~|lsh|logand|logior|boole)(?=$|[\s()])</string>
+					<string>(?&lt;=^|['\s()])(?i:numberp|zerop|minusp|\+|-|\*|/|1\+|1-|rem|float|fix)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.number.vanilla.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])(?:pi)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.constant.math.vanilla.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;=^|['\s()])(?i:min|max|abs|gcd|sqrt|expt|exp|log|sin|cos|atan)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.math.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:atom|null|listp|length|c[ad]{1,4}r|nth|last|cons|list|append|reverse|mapcar|foreach|apply|member|subst|assoc)(?=$|[\s()])</string>
+					<string>(?&lt;=^|['\s()])(?i:~|lsh|logand|logior|boole)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.bitwise.vanilla.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|member|subst|assoc)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.list.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1])(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1]|read|load)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.io.vanilla.autolisp</string>
 				</dict>
@@ -455,7 +515,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vl-(?:consp|list\*|list-length|every|some|position|remove(?:-if(?:-not)?)?|member-if(?:-not)?|sort(?:-i)?)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vl-(?:consp|list\*|list-length|some|every|member-if(?:-not)?|position|remove(?:-if(?:-not)?)?|sort(?:-i)?)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.list.vl.autolisp</string>
 				</dict>
@@ -811,7 +871,7 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])until(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.control.vle.autolisp</string>
+					<string>keyword.control.vle.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
