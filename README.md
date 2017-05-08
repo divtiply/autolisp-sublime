@@ -6,7 +6,7 @@ Supports syntax highlighting for vanilla [AutoLISP and Visual LISP](http://help.
 
 ## Screenshots
 
-![Material](screenshots/material.png)
+![Material](screenshot.png)
 
 ## Optional dependencies
 Build system is dependent on [AutoLISP console](https://github.com/divtiply/autolisp-console).
