@@ -87,10 +87,10 @@ repository:
     patterns:
     - include: '#vanilla'
     - include: '#vl'
-    - include: '#vle'
     - include: '#vlr'
     - include: '#vlax'
     - include: '#vla'
+    - include: '#vle'
     - include: '#call'
 
   vanilla:
@@ -101,26 +101,24 @@ repository:
       match: (?i)(?<=^|['\s()])(?:nil|t)(?=$|[\s()])
     - name: support.function.base.vanilla.autolisp
       match: (?<=^|['\s()])(?i:eval|quote|setq|lambda|function|apply|defun|defun-q|cond|if|and|or|not|progn|exit|quit|repeat|while|foreach|equal|eq|=|/=|<|>|<=|>=|type|trace|untrace)(?=$|[\s()])
-    - name: support.function.symbol.vanilla.autolisp
+    - name: support.function.symbols.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:set|boundp|atoms-family)(?=$|[\s()])
-    - name: support.function.string.vanilla.autolisp
+    - name: support.function.strings.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:strlen|substr|strcat|ascii|chr|strcase|wcmatch|acad_strlsort)(?=$|[\s()])
-    - name: support.function.number.vanilla.autolisp
-      match: (?<=^|['\s()])(?i:numberp|zerop|minusp|\+|-|\*|/|1\+|1-|rem|float|fix)(?=$|[\s()])
-    - name: support.constant.math.vanilla.autolisp
+    - name: support.function.numbers.vanilla.autolisp
+      match: (?<=^|['\s()])(?i:numberp|zerop|minusp|float|fix|itoa|atoi|atof|\+|-|\*|/|1\+|1-|abs|min|max|rem|gcd|expt|exp|log|sqrt|sin|cos|atan)(?=$|[\s()])
+    - name: support.constant.numbers.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:pi)(?=$|[\s()])
-    - name: support.function.math.vanilla.autolisp
-      match: (?<=^|['\s()])(?i:min|max|abs|gcd|sqrt|expt|exp|log|sin|cos|atan)(?=$|[\s()])
     - name: support.function.bitwise.vanilla.autolisp
       match: (?<=^|['\s()])(?i:~|lsh|logand|logior|boole)(?=$|[\s()])
-    - name: support.function.list.vanilla.autolisp
+    - name: support.function.lists.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|member|subst|assoc)(?=$|[\s()])
     - name: support.function.io.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:open|close|(?:read|write)-(?:char|line)|findfile|findtrustedfile|fnsplitl|prin[tc1]|read|load)(?=$|[\s()])
     - name: support.function.display.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:prompt|terpri|textpage|textscr|graphscr|redraw|grtext|grdraw|grvecs|vports|menucmd|menugroup)(?=$|[\s()])
     - name: support.function.acad.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:setvar|getvar|acad-(?:push|pop)-dbmod|alert|acad_(?:helpdlg|colordlg|truecolordlg|truecolorcli)|getfiled)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:[gs]etvar|acad-(?:push|pop)-dbmod|alert|acad_(?:helpdlg|colordlg|truecolordlg|truecolorcli)|getfiled)(?=$|[\s()])
     - name: support.function.input.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:initget|get(?:kword|string|int|real|dist|angle|orient|point|corner)|entsel|nentsel|nentselp)(?=$|[\s()])
     - name: support.function.entity.vanilla.autolisp
@@ -130,17 +128,17 @@ repository:
     - name: support.function.acadmac.vanilla.autolisp
       match: (?i)(?<=^|['\s()])(?:dumpallproperties|ispropertyreadonly|[gs]etpropertyvalue)(?=$|[\s()])
     - name: support.function.dcl.vanilla.autolisp
-      match: (?i)(?<=^|['\s()])(?:(?:load|unload|new|start|term|done)_dialog|(?:add|start|end)_list|(?:start|end|slide|fill|vector)_image|(?:set|get|action|mode|dimx|dimy|client_data)_tile|get_attr)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])(?:(?:load|unload|new|start|term|done)_dialog|(?:add|start|end)_list|(?:start|end|slide|fill|vector)_image|(?:[gs]et|action|mode|dimx|dimy|client_data)_tile|get_attr)(?=$|[\s()])
 
   vl:
     patterns:
     - name: support.function.misc.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-load-com(?=$|[\s()])
-    - name: support.function.symbol.vl.autolisp
+    - name: support.function.symbols.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-symbol(?:p|-value|-name)(?=$|[\s()])
-    - name: support.function.string.vl.autolisp
+    - name: support.function.strings.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|>list)|list->string)(?=$|[\s()])
-    - name: support.function.list.vl.autolisp
+    - name: support.function.lists.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:consp|list\*|list-length|some|every|member-if(?:-not)?|position|remove(?:-if(?:-not)?)?|sort(?:-i)?)(?=$|[\s()])
     - name: support.function.io.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:prin[c1]-to-string|file-(?:directory-p|size|systime|rename|copy|delete)|filename-(?:directory|base|extension|mktemp)|directory-files|mkdir)(?=$|[\s()])
@@ -148,27 +146,6 @@ repository:
       match: (?i)(?<=^|['\s()])vl-(?:catch-all-(?:apply|error-p))(?=$|[\s()])
     - name: support.function.namespace.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:arx-import|doc-(?:import|export|ref|set)|exit-with-(?:error|value)|list-loaded-vlx|unload-vlx|vlx-loaded-p|bb-(?:ref|set)|load-all|propogate)(?=$|[\s()])
-
-  vle:
-    patterns:
-    - name: support.constant.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-extensions-active(?=$|[\s()])
-    - name: keyword.control.vle.autolisp
-      match: (?i)(?<=^|['\s()])until(?=$|[\s()])
-    - name: support.function.symbol.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-symbolp(?=$|[\s()])
-    - name: support.function.string.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-string(?:p|-split)(?=$|[\s()])
-    - name: support.function.math.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-(?:numberp|integerp|realp|ceiling|floor|round|roundto|tan)(?=$|[\s()])
-    - name: support.function.list.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-(?:nth\d|sublist|append|(?:get-|set-)?(?:cdrassoc|cassoc)|list-(?:split|union|intersect|diff|subtract)|put-nth|remove-(?:all|first|last|nth)|search|find|member|subst-nth)(?=$|[\s()])
-    - name: support.function.activex.vle.autolisp
-      match: (?i)(?<=^|['\s()])(?:vle-(?:vlaobjectp|variantp|safearrayp)|vlax-2d-point)(?=$|[\s()])
-    - name: support.function.io.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-(?:filep|file->list)(?=$|[\s()])
-    - name: support.function.display.vle.autolisp
-      match: (?i)(?<=^|['\s()])vle-displaypause(?=$|[\s()])
 
   vlr:
     patterns:
@@ -211,7 +188,7 @@ repository:
   vla:
     patterns:
     - name: support.function.method.common.vla.autolisp
-      match: (?i)(?<=^|['\s()])vla-(?:Delete|Move|Copy|(?:Rotate|Mirror)(?:3D)?|ScaleEntity|TransformBy|Array(?:Polar|Rectangular)|Update|Highlight|GetBoundingBox|(?:Get|Set)XData|GetExtensionDictionary|IntersectWith|Offset)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vla-(?:Delete|Move|Copy|(?:Rotate|Mirror)(?:3D)?|ScaleEntity|TransformBy|Array(?:Polar|Rectangular)|Update|Highlight|GetBoundingBox|[GS]etXData|GetExtensionDictionary|IntersectWith|Offset)(?=$|[\s()])
     - name: support.function.property.common.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Layer|Linetype|LinetypeScale|Lineweight|TrueColor|Material|Visible|EntityTransparency|Rotation|Thickness|Coordinate[s]?|Normal|PlotStyleName|Position|Closed|Area)(?=$|[\s()])
     - name: support.function.property.common.vla.autolisp
@@ -233,7 +210,7 @@ repository:
     - name: support.function.property.database.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-get-(?:Blocks|Dictionaries|DimStyles|FileDependencies|Groups|Layers|Layouts|Linetypes|Materials|(?:Model|Paper)Space|PlotConfigurations|Preferences|RegisteredApplications|SectionManager|SummaryInfo|TextStyles|UserCoordinateSystems|Viewports|Views)(?=$|[\s()])
     - name: support.function.method.document.vla.autolisp
-      match: (?i)(?<=^|['\s()])vla-(?:New|Open|Close|Save|SaveAs|Import|Export|WBlock|LoadShapeFile|PurgeAll|Regen|Activate|AuditInfo|(?:Start|End)UndoMark|(?:Get|Set)Variable|SendCommand)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vla-(?:New|Open|Close|Save|SaveAs|Import|Export|WBlock|LoadShapeFile|PurgeAll|Regen|Activate|AuditInfo|(?:Start|End)UndoMark|[GS]etVariable|SendCommand)(?=$|[\s()])
     - name: support.function.property.document.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Active(?:DimStyle|Layer|Layout|LineType|Material|PViewport|Space|TextStyle|UCS|Viewport)|Limits|MSpace)(?=$|[\s()])
     - name: support.function.property.document.vla.autolisp
@@ -245,7 +222,7 @@ repository:
     - name: support.constant.lineweight.vla.autolisp
       match: (?i)(?<=^|['\s()])acLnWt(?:ByLayer|ByBlock|ByLwDefault|000|005|009|013|015|018|020|025|030|035|040|050|053|060|070|080|090|100|106|120|140|158|200|211)(?=$|[\s()])
     - name: support.function.method.spline.vla.autolisp
-      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Delete)FitPoint|ElevateOrder|(?:Get|Set)(?:Control|Fit)Point|GetWeight|PurgeFitData)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Delete)FitPoint|ElevateOrder|[GS]et(?:Control|Fit)Point|GetWeight|PurgeFitData)(?=$|[\s()])
     - name: support.function.property.spline.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Closed2|Degree2|EndTangent|FitPoints|FitTolerance|KnotParameterization|Knots|SplineFrame|SplineMethod|StartTangent|Weights)(?=$|[\s()])
     - name: support.function.property.spline.vla.autolisp
@@ -273,15 +250,36 @@ repository:
     - name: support.function.table.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:ClearSubSelection|ClearTableStyleOverrides|CreateContent|Delete(?:Cell)?Content|Delete(?:Columns|Rows)|EnableMergeAll|FormatValue|GenerateLayout)(?=$|[\s()])
     - name: support.function.method.summaryinfo.vla.autolisp
-      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Num)CustomInfo|(?:Get|Set|Remove)CustomBy(?:Index|Key))(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vla-(?:(?:Add|Num)CustomInfo|(?:[GS]et|Remove)CustomBy(?:Index|Key))(?=$|[\s()])
     - name: support.function.property.summaryinfo.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:Author|Coments|HyperlinkBase|Keywords|LastSavedBy|RevisionNumber|Subject|Title)(?=$|[\s()])
     - name: support.function.method.menu-toolbar.vla.autolisp
-      match: (?i)(?<=^|['\s()])vla-(?:Save|SaveAs|Unload|Delete|(?:Add(?:MenuItem|Separator|Submenu|ToolbarButton)|(?:Insert(?:Menu)?In|Remove(?:Menu)?From)MenuBar)|Dock|Float|AttachToolbarToFlyout|(?:Get|Set)Bitmaps)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vla-(?:Save|SaveAs|Unload|Delete|(?:Add(?:MenuItem|Separator|Submenu|ToolbarButton)|(?:Insert(?:Menu)?In|Remove(?:Menu)?From)MenuBar)|Dock|Float|AttachToolbarToFlyout|[GS]etBitmaps)(?=$|[\s()])
     - name: support.function.property.menu-toolbar.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-(?:get|put)-(?:FloatingRows|LargeButtons|Left|Top|Check|Enable|EndSubMenuLevel|HelpString|CommandDisplayName)(?=$|[\s()])
     - name: support.function.property.menu-toolbar.vla.autolisp
       match: (?i)(?<=^|['\s()])vla-get-(?:MenuFileName|Menus|Submenu|Toolbars|Index|Caption|Label|Macro|NameNoMnemonic|OnMenuBar|ShortcutMenu|Parent|DockStatus|Height|Width|Type|TagString|Flyout)(?=$|[\s()])
+
+  vle:
+    patterns:
+    - name: support.constant.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-extensions-active(?=$|[\s()])
+    - name: keyword.control.vle.autolisp
+      match: (?i)(?<=^|['\s()])until(?=$|[\s()])
+    - name: support.function.symbols.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-symbolp(?=$|[\s()])
+    - name: support.function.strings.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:strig-p|string-split)(?=$|[\s()])
+    - name: support.function.numbers.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:numberp|integerp|realp|floor|ceiling|round|roundto|tan)(?=$|[\s()])
+    - name: support.function.lists.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:nth\d|sublist|append|(?:[gs]et-)?(?:cdrassoc|cassoc)|list-(?:split|union|intersect|diff|subtract)|put-nth|remove-(?:all|first|last|nth)|search|find|member|subst-nth)(?=$|[\s()])
+    - name: support.function.activex.vle.autolisp
+      match: (?i)(?<=^|['\s()])(?:vle-(?:vlaobjectp|variantp|safearrayp)|vlax-2d-point)(?=$|[\s()])
+    - name: support.function.io.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-(?:filep|file->list)(?=$|[\s()])
+    - name: support.function.display.vle.autolisp
+      match: (?i)(?<=^|['\s()])vle-displaypause(?=$|[\s()])
 
   call:
     patterns:
@@ -289,10 +287,8 @@ repository:
       match: (?i)(?<=^|['\s()])ll-(?:features)(?=$|[\s()])
     - name: support.function.require.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:featurep|provide|require)(?=$|[\s()])
-    - name: support.function.logic.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:nand|nor|xor)(?=$|[\s()])
-    - name: support.function.type.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:typep|anyp|functionp)(?=$|[\s()])
+    - name: support.function.lang.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:nand|nor|xor|functionp|typep|anyp)(?=$|[\s()])
     - name: support.constant.boolean.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:true|false)(?=$|[\s()])
     - name: support.function.boolean.call.autolisp
@@ -301,29 +297,29 @@ repository:
       match: (?i)(?<=^|['\s()])ll-(?:void)(?=$|[\s()])
     - name: support.function.void.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:voidp)(?=$|[\s()])
-    - name: support.function.symbol.call.autolisp
+    - name: support.function.symbols.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:symbolp|symbol-value|symbol-name)(?=$|[\s()])
-    - name: support.function.string.call.autolisp
+    - name: support.function.strings.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:substring|list->string|string-(?:>list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])
     # - name: support.function.stringx.call.autolisp
     #   match: (?i)(?<=^|['\s()])ll-(?:string(?:=|/=|<|>|<=|>=)|string-(?:not-)?(?:equal|lessp|greaterp))(?=$|[\s()])
+    - name: support.function.numbers.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:integerp|realp|natnump|plusp|oddp|evenp|clamp|lerp|mod|quot|frac|signum|copysign|lcm|truncate|floor|ceiling|round[*]?|log10|log2|cbrt|tan|asin|acos|hypot|rtd|dtr|sinh|cosh|tanh|asinh|acosh|atanh)(?=$|[\s()])
+    - name: support.constant.numbers.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:e|ln10|ln2|log10e|log2e|pi/2|pi/4|pi/180|180/pi|1/pi|2pi|sqrt2|sqrt1/2)(?=$|[\s()])
+    - name: support.function.raretrig.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|coth|sech|csch|asech|acsch)(?=$|[\s()])
     - name: support.function.random.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:rand|srand|random|random-seed)(?=$|[\s()])
-    - name: support.function.number.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:integerp|realp|natnump|plusp|oddp|evenp|mod|quot)(?=$|[\s()])
-    - name: support.constant.numlim.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:most-(?:positive|negative)-fixnum|float-(?:negative-)?epsilon|(?:negative-)?inf|nan)(?=$|[\s()])
-    - name: support.function.numlim.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:infp|nanp)(?=$|[\s()])
-    - name: support.function.math.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:signum|round|floor|ceiling|truncate|fract|lcm|tan|asin|acos|radians->degrees|degrees->radians)(?=$|[\s()])
-    - name: support.function.mathx.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:1/|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|gons->radians|radians->gons|gons->degrees|degrees->gons|dms->degrees|degrees->dms)(?=$|[\s()])
     - name: support.constant.bitwise.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:boole-(?:1|2|and|andc1|andc2|c1|c2|clr|eqv|ior|nand|nor|orc1|orc2|set|xor))(?=$|[\s()])
-    - name: support.function.list.call.autolisp
+    - name: support.constant.numlims.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:most-(?:positive|negative)-fixnum|float-(?:negative-)?epsilon|(?:negative-)?inf|nan)(?=$|[\s()])
+    - name: support.function.numlims.call.autolisp
+      match: (?i)(?<=^|['\s()])ll-(?:infp|nanp)(?=$|[\s()])
+    - name: support.function.lists.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|last-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])
-    - name: support.function.listset.call.autolisp
+    - name: support.function.lsets.call.autolisp
       match: (?i)(?<=^|['\s()])ll-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])
     - name: support.function.activex.call.autolisp
-      match: (?i)(?<=^|['\s()])ll-(?:vla-object-p|variantp|safearrayp)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])ll-(?:vlaobjectp|variantp|safearrayp)(?=$|[\s()])

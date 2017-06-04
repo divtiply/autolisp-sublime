@@ -41,15 +41,9 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:nand|nor|xor)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:nand|nor|xor|functionp|typep|anyp)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.logic.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:typep|anyp|functionp)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.type.call.autolisp</string>
+					<string>support.function.lang.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -79,13 +73,31 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:symbolp|symbol-value|symbol-name)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.symbol.call.autolisp</string>
+					<string>support.function.symbols.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:substring|list-&gt;string|string-(?:&gt;list|elt|position)|string-(?:left-|right-)?trim)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.string.call.autolisp</string>
+					<string>support.function.strings.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:integerp|realp|natnump|plusp|oddp|evenp|clamp|lerp|mod|quot|frac|signum|copysign|lcm|truncate|floor|ceiling|round[*]?|log10|log2|cbrt|tan|asin|acos|hypot|rtd|dtr|sinh|cosh|tanh|asinh|acosh|atanh)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.numbers.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:e|ln10|ln2|log10e|log2e|pi/2|pi/4|pi/180|180/pi|1/pi|2pi|sqrt2|sqrt1/2)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.constant.numbers.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|coth|sech|csch|asech|acsch)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.raretrig.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -95,55 +107,37 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:integerp|realp|natnump|plusp|oddp|evenp|mod|quot)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.number.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:most-(?:positive|negative)-fixnum|float-(?:negative-)?epsilon|(?:negative-)?inf|nan)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.constant.numlim.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:infp|nanp)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.numlim.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:signum|round|floor|ceiling|truncate|fract|lcm|tan|asin|acos|radians-&gt;degrees|degrees-&gt;radians)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.math.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:1/|sqr|exp10|exp2|log10|log2|cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|sinh|cosh|tanh|coth|sech|csch|asinh|acosh|atanh|acoth|asech|acsch|gons-&gt;radians|radians-&gt;gons|gons-&gt;degrees|degrees-&gt;gons|dms-&gt;degrees|degrees-&gt;dms)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.mathx.call.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:boole-(?:1|2|and|andc1|andc2|c1|c2|clr|eqv|ior|nand|nor|orc1|orc2|set|xor))(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.constant.bitwise.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:most-(?:positive|negative)-fixnum|float-(?:negative-)?epsilon|(?:negative-)?inf|nan)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.constant.numlims.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:infp|nanp)(?=$|[\s()])</string>
+					<key>name</key>
+					<string>support.function.numlims.call.autolisp</string>
+				</dict>
+				<dict>
+					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:consp|endp|make-list|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|rest|nthcdr|firstn|butlast|butlastn|last-cons|lastn|sublist|subseq|split(?:-if(?:-not)?|-at(?:-first|-last)?|-all)?|partition(?:-all)?|separate|list-length|revappend|copy-(?:list|tree)|count(?:-if(?:-not)?)?|maplist|maptree|some|every|foldr|foldl|reduce(?:-from-end|-with-init)?|member-if(?:-not)?|position(?:-if(?:-not)?)?|inlistp|mismatch|subst(?:-if(?:-not)?|-nth|-first|-last)|substree|sublis|flatten|insert|remove(?:-if(?:-not)?|-nth|-first|-last)?|remove(?:-adjacent)?-duplicates|tailp|ldiff)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.list.call.autolisp</string>
+					<string>support.function.lists.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])ll-(?:subsetp|adjoin|union|intersection|set-difference|set-exclusive-or)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.listset.call.autolisp</string>
+					<string>support.function.lsets.call.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:vla-object-p|variantp|safearrayp)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:vlaobjectp|variantp|safearrayp)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.activex.call.autolisp</string>
 				</dict>
@@ -357,10 +351,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#vle</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#vlr</string>
 				</dict>
 				<dict>
@@ -370,6 +360,10 @@
 				<dict>
 					<key>include</key>
 					<string>#vla</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#vle</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -403,31 +397,25 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])(?:set|boundp|atoms-family)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.symbol.vanilla.autolisp</string>
+					<string>support.function.symbols.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])(?:strlen|substr|strcat|ascii|chr|strcase|wcmatch|acad_strlsort)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.string.vanilla.autolisp</string>
+					<string>support.function.strings.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?&lt;=^|['\s()])(?i:numberp|zerop|minusp|\+|-|\*|/|1\+|1-|rem|float|fix)(?=$|[\s()])</string>
+					<string>(?&lt;=^|['\s()])(?i:numberp|zerop|minusp|float|fix|itoa|atoi|atof|\+|-|\*|/|1\+|1-|abs|min|max|rem|gcd|expt|exp|log|sqrt|sin|cos|atan)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.number.vanilla.autolisp</string>
+					<string>support.function.numbers.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])(?:pi)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.constant.math.vanilla.autolisp</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?&lt;=^|['\s()])(?i:min|max|abs|gcd|sqrt|expt|exp|log|sin|cos|atan)(?=$|[\s()])</string>
-					<key>name</key>
-					<string>support.function.math.vanilla.autolisp</string>
+					<string>support.constant.numbers.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -439,7 +427,7 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])(?:atom|null|listp|cons|list|c[ad]{1,4}r|last|nth|length|reverse|append|mapcar|member|subst|assoc)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.list.vanilla.autolisp</string>
+					<string>support.function.lists.vanilla.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -455,7 +443,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:setvar|getvar|acad-(?:push|pop)-dbmod|alert|acad_(?:helpdlg|colordlg|truecolordlg|truecolorcli)|getfiled)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])(?:[gs]etvar|acad-(?:push|pop)-dbmod|alert|acad_(?:helpdlg|colordlg|truecolordlg|truecolorcli)|getfiled)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.acad.vanilla.autolisp</string>
 				</dict>
@@ -485,7 +473,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])(?:(?:load|unload|new|start|term|done)_dialog|(?:add|start|end)_list|(?:start|end|slide|fill|vector)_image|(?:set|get|action|mode|dimx|dimy|client_data)_tile|get_attr)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])(?:(?:load|unload|new|start|term|done)_dialog|(?:add|start|end)_list|(?:start|end|slide|fill|vector)_image|(?:[gs]et|action|mode|dimx|dimy|client_data)_tile|get_attr)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.dcl.vanilla.autolisp</string>
 				</dict>
@@ -505,19 +493,19 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])vl-symbol(?:p|-value|-name)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.symbol.vl.autolisp</string>
+					<string>support.function.symbols.vl.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|&gt;list)|list-&gt;string)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.string.vl.autolisp</string>
+					<string>support.function.strings.vl.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])vl-(?:consp|list\*|list-length|some|every|member-if(?:-not)?|position|remove(?:-if(?:-not)?)?|sort(?:-i)?)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.list.vl.autolisp</string>
+					<string>support.function.lists.vl.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -545,7 +533,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vla-(?:Delete|Move|Copy|(?:Rotate|Mirror)(?:3D)?|ScaleEntity|TransformBy|Array(?:Polar|Rectangular)|Update|Highlight|GetBoundingBox|(?:Get|Set)XData|GetExtensionDictionary|IntersectWith|Offset)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vla-(?:Delete|Move|Copy|(?:Rotate|Mirror)(?:3D)?|ScaleEntity|TransformBy|Array(?:Polar|Rectangular)|Update|Highlight|GetBoundingBox|[GS]etXData|GetExtensionDictionary|IntersectWith|Offset)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.method.common.vla.autolisp</string>
 				</dict>
@@ -611,7 +599,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vla-(?:New|Open|Close|Save|SaveAs|Import|Export|WBlock|LoadShapeFile|PurgeAll|Regen|Activate|AuditInfo|(?:Start|End)UndoMark|(?:Get|Set)Variable|SendCommand)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vla-(?:New|Open|Close|Save|SaveAs|Import|Export|WBlock|LoadShapeFile|PurgeAll|Regen|Activate|AuditInfo|(?:Start|End)UndoMark|[GS]etVariable|SendCommand)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.method.document.vla.autolisp</string>
 				</dict>
@@ -647,7 +635,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vla-(?:(?:Add|Delete)FitPoint|ElevateOrder|(?:Get|Set)(?:Control|Fit)Point|GetWeight|PurgeFitData)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vla-(?:(?:Add|Delete)FitPoint|ElevateOrder|[GS]et(?:Control|Fit)Point|GetWeight|PurgeFitData)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.method.spline.vla.autolisp</string>
 				</dict>
@@ -731,7 +719,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vla-(?:(?:Add|Num)CustomInfo|(?:Get|Set|Remove)CustomBy(?:Index|Key))(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vla-(?:(?:Add|Num)CustomInfo|(?:[GS]et|Remove)CustomBy(?:Index|Key))(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.method.summaryinfo.vla.autolisp</string>
 				</dict>
@@ -743,7 +731,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vla-(?:Save|SaveAs|Unload|Delete|(?:Add(?:MenuItem|Separator|Submenu|ToolbarButton)|(?:Insert(?:Menu)?In|Remove(?:Menu)?From)MenuBar)|Dock|Float|AttachToolbarToFlyout|(?:Get|Set)Bitmaps)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vla-(?:Save|SaveAs|Unload|Delete|(?:Add(?:MenuItem|Separator|Submenu|ToolbarButton)|(?:Insert(?:Menu)?In|Remove(?:Menu)?From)MenuBar)|Dock|Float|AttachToolbarToFlyout|[GS]etBitmaps)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.method.menu-toolbar.vla.autolisp</string>
 				</dict>
@@ -877,25 +865,25 @@
 					<key>match</key>
 					<string>(?i)(?&lt;=^|['\s()])vle-symbolp(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.symbol.vle.autolisp</string>
+					<string>support.function.symbols.vle.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vle-string(?:p|-split)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vle-(?:strig-p|string-split)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.string.vle.autolisp</string>
+					<string>support.function.strings.vle.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vle-(?:numberp|integerp|realp|ceiling|floor|round|roundto|tan)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vle-(?:numberp|integerp|realp|floor|ceiling|round|roundto|tan)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.math.vle.autolisp</string>
+					<string>support.function.numbers.vle.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vle-(?:nth\d|sublist|append|(?:get-|set-)?(?:cdrassoc|cassoc)|list-(?:split|union|intersect|diff|subtract)|put-nth|remove-(?:all|first|last|nth)|search|find|member|subst-nth)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vle-(?:nth\d|sublist|append|(?:[gs]et-)?(?:cdrassoc|cassoc)|list-(?:split|union|intersect|diff|subtract)|put-nth|remove-(?:all|first|last|nth)|search|find|member|subst-nth)(?=$|[\s()])</string>
 					<key>name</key>
-					<string>support.function.list.vle.autolisp</string>
+					<string>support.function.lists.vle.autolisp</string>
 				</dict>
 				<dict>
 					<key>match</key>
