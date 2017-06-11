@@ -95,7 +95,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])ll-(?:cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|coth|sech|csch|asech|acsch)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])ll-(?:cot|sec|csc|acot|asec|acsc|versin|vercos|coversin|covercos|haversin|havercos|hacoversin|hacovercos|exsec|excsc|coth|sech|csch|acoth|asech|acsch)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.raretrig.call.autolisp</string>
 				</dict>
