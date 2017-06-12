@@ -137,7 +137,7 @@ repository:
     - name: support.function.symbols.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-symbol(?:p|-value|-name)(?=$|[\s()])
     - name: support.function.strings.vl.autolisp
-      match: (?i)(?<=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|>list)|list->string)(?=$|[\s()])
+      match: (?i)(?<=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|mismatch|translate|subst|>list)|list->string)(?=$|[\s()])
     - name: support.function.lists.vl.autolisp
       match: (?i)(?<=^|['\s()])vl-(?:consp|list\*|list-length|some|every|member-if(?:-not)?|position|remove(?:-if(?:-not)?)?|sort(?:-i)?)(?=$|[\s()])
     - name: support.function.io.vl.autolisp

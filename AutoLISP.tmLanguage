@@ -497,7 +497,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>(?i)(?&lt;=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|translate|mismatch|&gt;list)|list-&gt;string)(?=$|[\s()])</string>
+					<string>(?i)(?&lt;=^|['\s()])vl-(?:string-(?:elt|(?:left-|right-)?trim|position|search|mismatch|translate|subst|&gt;list)|list-&gt;string)(?=$|[\s()])</string>
 					<key>name</key>
 					<string>support.function.strings.vl.autolisp</string>
 				</dict>
