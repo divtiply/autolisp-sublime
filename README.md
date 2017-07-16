@@ -6,7 +6,9 @@ Supports syntax highlighting for vanilla [AutoLISP and Visual LISP](http://help.
 
 ## Installation
 Install using [Package Control](https://packagecontrol.io/).
-Open any AutoLisp file with Sublime Text, invoke menu item "View\Syntax\Open all with current extension as..." and select "AutoLISP".
+
+## Activation
+Open any AutoLISP file with Sublime Text, invoke menu item `View -> Syntax -> Open all with current extension as...` and select `AutoLISP`.
 
 ## Screenshots
 
